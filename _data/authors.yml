@@ -2,7 +2,7 @@ default:                                                      # Fallback if noth
   initial:      jwillmer                                      # used for author lookup in posts and for first two characters in the about page back button
   name:         "Jens Willmer"                                # used to display author name
   cover:        /assets/mountain-alternative-cover.jpg        # OPTIONAL: defines location of cover image in about page
-  picture:      /assets/jwillmer.jpg                          # OPTIONAL: author picture
+  picture:      /assets/carrie.jpg                          # OPTIONAL: author picture
   bio:          All about technology                          # OPTIONAL: text below author name in posts
   location:     Germany                                       # OPTIONAL: used to display location of the author
   website:      "http://jwillmer.de/about"                    # OPTIONAL: link to the author of a post
@@ -23,7 +23,7 @@ jwillmer:
   initial:      jwillmer
   name:         "Jens Willmer"        
   cover:        /assets/mountain-alternative-cover.jpg  
-  picture:      /assets/jwillmer.jpg  
+  picture:      /assets/carrie.jpg  
   bio:          All about technology 
   location:     Germany 
   website:      "http://jwillmer.de/about" 
