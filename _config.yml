@@ -17,6 +17,7 @@ url:              "" # the base hostname & protocol for your site. Have a look a
 permalink:        /blog/:categories/:title
 cover:            /assets/mountain-cover.jpg
 disqus_shortname: "carrie's blog"
+encoding: UTF-8
 
 # Build settings
 markdown: kramdown
