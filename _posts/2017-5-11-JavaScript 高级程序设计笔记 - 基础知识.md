@@ -8,6 +8,7 @@ author:            carrie
 math:              true
 ---
 ###语句
+
 省略分号时，解释器把能合并的代码和当前行合并，但是`++`和`--`除外，它们和下一行合并。
 ```javascript
 a=1
@@ -29,15 +30,17 @@ message;    //全局变量
 ### 简单数据类型（基本数据类型,原始数据类型）
 * `Undefined` 
 
-    不是一个关键字；本质上是windows的一个属性，typeof 返回Undefined，数字类型转换返回NAN。
+    不是一个关键字；本质上是 windows 的一个属性，typeof 返回 Undefined，数字类型转换返回 NAN。
 * `Null` 
 
     是一个关键字；本质上是一个空对象,typeof 返回 Object, 数字类型转换返回0。
     
+    null 和 Undefined 都不具备任何方法。
+    
     Tips:
     * 定义时用null来初始化
     * 判断是否为空，使用==null；
-    * 检测值是否存在，使用===Undefined。windows属性有很多，用Undefined做判断时很消耗性能。
+    * 检测值是 null 还是 undefined，才使用===Undefined。windows属性有很多，用Undefined做判断时很消耗性能。
     
     当我们创建对象，并给属性赋值时，检测是否为空，使用==null；检测值是否存在，使用===Undefined。
 
@@ -50,16 +53,33 @@ message;    //全局变量
 
 * `Number` 包括 `常规数字, 无穷, NAN`
 
-    注意小数 0.1+0.2 不等于 0.3， 因为小数的二进制表示可能是一个无穷数，操作小数时可以先转换为整数。NAN是一个特殊的Number类型，不等于其本身。
+    解释器将 `.1` 解释为 `0.1` ；将 `1.` 自动转换为整数 `1` 。
+    
+    注意：小数 0.1+0.2 不等于 0.3， 因为小数的二进制表示可能是一个无穷数，操作小数时可以先转换为整数。
+    
+    NAN 是一个特殊的 Number 类型，不等于其本身。
+    `0/0 返回 NAN; 其他数值/0 返回无穷。`
+
+    * isNaN() 判断是否能将参数转换为数值。
+    * Number() 将所有的类型转换为数字。
+    * parseInt()
+    * parseFloat()
+    
 * `String` 由Unicode编码
     * .length属性 返回字符串长度
     * 当遇到`.`时，解释器对非对象类型的数据先转换为对象，再执行。在所有的数据类型中，只有null和Undefined不能转换为对象。
+    toString() 方法：转换为字符串。
+#### 数据类型转换总结
+1. Number,Boolean,String 都有一个和自己同名的函数，用来转换数据类型。
+2. 函数首字母都大写
+3. 参数可以是6中任何数据类型
+4. 返回值是相应的同名的数据类型
 
 ### 复杂数据类型 `Object`
 对象有属性，对象有方法，对象可改变
 1. 内部对象
     * 错误对象
-    * 常用对象 8种`String,Number,Boolean,Object,Function,Array,Date,Ext`
+    * 常用对象 8种 `String,Number,Boolean,Object,Function,Array,Date,Ext`
     * 内置对象 `Global,Length,Json`
 2. 宿主对象 `Windows`
 3. 自定义对象
