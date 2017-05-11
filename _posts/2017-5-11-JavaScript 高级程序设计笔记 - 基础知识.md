@@ -7,6 +7,7 @@ category:          JavaScript
 author:            carrie
 math:              true
 ---
+
 ###语句
 
 省略分号时，解释器把能合并的代码和当前行合并，但是`++`和`--`除外，它们和下一行合并。
