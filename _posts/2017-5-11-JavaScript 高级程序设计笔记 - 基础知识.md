@@ -7,7 +7,6 @@ category:          JavaScript
 author:            carrie
 math:              true
 ---
-# 基础知识
 ## 表达式
 表达式和操作符构成了JS,
 ### 表达式的分类
