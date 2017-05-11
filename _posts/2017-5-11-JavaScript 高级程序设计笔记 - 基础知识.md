@@ -7,6 +7,80 @@ category:          JavaScript
 author:            carrie
 math:              true
 ---
+###语句
+省略分号时，解释器把能合并的代码和当前行合并，但是`++`和`--`除外，它们和下一行合并。
+```javascript
+a=1
+b=2
+a
+++
+b
+//a=1,b=3
+```
+### 变量
+
+```javascript
+var message; //局部变量
+message;    //全局变量
+```
+
+## 数据类型 `5+1种`
+
+### 简单数据类型（基本数据类型,原始数据类型）
+* `Undefined` 
+
+    不是一个关键字；本质上是windows的一个属性，typeof 返回Undefined，数字类型转换返回NAN。
+* `Null` 
+
+    是一个关键字；本质上是一个空对象,typeof 返回 Object, 数字类型转换返回0。
+    
+    Tips:
+    * 定义时用null来初始化
+    * 判断是否为空，使用==null；
+    * 检测值是否存在，使用===Undefined。windows属性有很多，用Undefined做判断时很消耗性能。
+    
+    当我们创建对象，并给属性赋值时，检测是否为空，使用==null；检测值是否存在，使用===Undefined。
+
+* `Boolean, Bool`
+
+    在JS中，所有的数据类型都可以被转换为 Boolean 型，只有以下六个转换成布尔类型时会返回false,包括`Undefined, none, 0, -0, NAN, 空字符串`，其余都会返回true，包括空对象。
+    
+    Tips:
+    * 可以使用 `!!` 将其它数据类型转换为 Boolean 型
+
+* `Number` 包括 `常规数字, 无穷, NAN`
+
+    注意小数 0.1+0.2 不等于 0.3， 因为小数的二进制表示可能是一个无穷数，操作小数时可以先转换为整数。NAN是一个特殊的Number类型，不等于其本身。
+* `String` 由Unicode编码
+    * .length属性 返回字符串长度
+    * 当遇到`.`时，解释器对非对象类型的数据先转换为对象，再执行。在所有的数据类型中，只有null和Undefined不能转换为对象。
+
+### 复杂数据类型 `Object`
+对象有属性，对象有方法，对象可改变
+1. 内部对象
+    * 错误对象
+    * 常用对象 8种`String,Number,Boolean,Object,Function,Array,Date,Ext`
+    * 内置对象 `Global,Length,Json`
+2. 宿主对象 `Windows`
+3. 自定义对象
+
+```javascript
+var a ='abcd';
+a.length =4;
+console.log(a.length); //undefined
+a.toUpperCase();
+console.log(a); //abcd
+/*5种基本数据类型都不可变，上面变量 a 调用 .length 方法时，会先把 a 转换成 Object, 调用完毕立即销毁，所以我们得到的结果是 undefined,调用 toUpperCase 方法时也是一样。*/
+```
+### typeof 操作符
+typeof 返回值都是字符串，使用时可带括号，也可省略。
+"undefind" - 如果这个值未定义
+"bollean" - 如果这个值是布尔值
+"string" - ...字符串
+"number" - ...数值
+"object" - ...对象或null
+"function" - ...函数
+
 ## 表达式
 表达式和操作符构成了JS。
 ### 表达式的分类
@@ -35,7 +109,7 @@ math:              true
 4. 递减操作 `--`
 5. 按位非 `~`
 6. 逻辑非 `!` ,先转换为布尔类型再取非。
- 在JS中只有以下六个转换成布尔类型时会返回false,包括`Undefined, none, 0, -0, NAN, 空字符串`，其余都会返回true，包括空对象。
+ 
 7. typeof 返回操作数的数据类型,后面可带括号，也可省略
 8. void 会返回Undefined
 9. delete
