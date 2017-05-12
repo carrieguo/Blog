@@ -20,10 +20,11 @@ b
 //a=1,b=3
 ```
 ### 变量
-
+    * 使用 var 操作符，定义一个变量，作用域为当前函数，基本数据类型不可改变。
+    * 不使用 var 操作符，本质上是给 windows 增加了一个全局属性，对象可被改变，对象上的属性可以被删除，对象上的属性是一个无序列表。
 ```javascript
-var message; //局部变量
-message;    //全局变量
+var message;    //局部变量，不可删除
+message;        //全局变量，可被删除
 ```
 
 ## 数据类型 `5+1种`
@@ -47,13 +48,17 @@ message;    //全局变量
 
 * `Boolean, Bool`
 
-    在JS中，所有的数据类型都可以被转换为 Boolean 型，只有以下六个转换成布尔类型时会返回false,包括`Undefined, none, 0, -0, NAN, 空字符串`，其余都会返回true，包括空对象。
+    在JS中，所有的数据类型都可以被转换为 Boolean 型。
+    
+    只有以下六个转换成布尔类型时会返回false,包括`Undefined, none, 0, -0, NAN, 空字符串`，其余都会返回true，包括空对象。
     
     Tips:
     * 可以使用 `!!` 将其它数据类型转换为 Boolean 型
 
 * `Number` 包括 `常规数字, 无穷, NAN`
 
+    在JS中，所有的数据类型都可以被转换为 Number 型。
+    
     解释器将 `.1` 解释为 `0.1` ；将 `1.` 自动转换为整数 `1` 。
     
     注意：小数 0.1+0.2 不等于 0.3， 因为小数的二进制表示可能是一个无穷数，操作小数时可以先转换为整数。
@@ -71,7 +76,10 @@ message;    //全局变量
     * 当遇到`.`时，解释器对非对象类型的数据先转换为对象，再执行。在所有的数据类型中，只有null和Undefined不能转换为对象。
     toString() 方法：转换为字符串。
     
-#### 数据类型转换总结
+    Tips:
+        * 可以在变量后加一个空字符串 `+'''` 将其它数据类型转换为 String 型。
+    
+#### 基本数据类型转换总结
 1. Number,Boolean,String 都有一个和自己同名的函数，用来转换数据类型。
 2. 函数首字母都大写
 3. 参数可以是6中任何数据类型
@@ -81,10 +89,65 @@ message;    //全局变量
 对象有属性，对象有方法，对象可改变
 1. 内部对象
     * 错误对象
-    * 常用对象 8种 `String,Number,Boolean,Object,Function,Array,Date,Ext`
+    * 常用对象 8种 `String,Number,Boolean,Object,Function,Array,Date,RegExp`
     * 内置对象 `Global,Length,Json`
 2. 宿主对象 `Windows`
 3. 自定义对象
+
+#### 创建对象
+
+```javascript
+//使用 new 操作符后跟 Object 构造函数
+var person = new Object(); //没有参数时，括号可省略
+person.name = 'Carrie';
+person.age = 29;
+
+//对象字面量表示法
+var person = {
+    name : 'Carrie', //加入属性名含空格，可以给属性名加引号 'first name' : 'Carrie'
+    age : 29
+};
+```
+
+#### 访问对象 `.`,`[]`
+    如果后面跟着的值是 null 或 undefined，会直接报错（null 和 undefined 没有方法），如果前面不是一个对象，会将前面的数据自动转换为对象。`.`,返回对应的值；`[]`, 先计算括号的值，再将计算的值转换为字符串，最后返回字符串对应的值，如果不存在返回 undefined。
+    
+
+#### 基本数据类型转换为 Object 类型
+Object存在一个 同名函数，将参数转换为Object类型
+1. Undefined Null 得到一个空对象
+2. String 有好几个属性，其中有 length,按数字的索引
+`String {0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"}`
+3. Boolean,Number 得到一个对象，属性名称为初始值，对应的值为true
+`[[PrimitiveValue]]: 123`
+
+#### Object 类型转换为基本数据类型
+1. 转换为Boolean 类型都返回 true。
+```javascript
+Boolean(new Boolean(false));
+//将布尔值false转换为对象再转换为布尔值结果是true，
+```
+2. 转换为 String 类型，
+
+    系统会先调用 toString() 方法：
+    
+        * Array,将数组中的每一项用逗号分隔开，并且合并成一个字符串。
+        * Function,当前函数的源代码
+        * Date, 日期和时间组合的字符串
+        * RegExp, 包含转义字符的正则字符串
+        
+    如果取不到值，再调用 valueof()：
+    
+        * 有原始值返回原始值
+        * 无原始值，返回对象自身
+        * Date对象会返回一串数字
+        
+3. 转换为 Number 类型
+       和 String 相反，先调用 valueof()，再调用 toString()。
+            
+####比较
+* 原始数据类型的比较是值的比较
+* 对象的比较是引用的比较
 
 ```javascript
 var a ='abcd';
@@ -180,9 +243,27 @@ a==2||b=3   //判断第一个表达式为false时，才赋值
 1. 先转换为数字，再进行运算
 2. NAN是一个特殊的数据类型，不等于任何值，包括自己。
 
-### 特殊的加操作
-1. 如果操作符两边都是Number或Boolean类型，先转换为数字再相加。
-2. 两边只要有一个是String类型，先转为String类型再拼接。
+### 特殊的二元加操作符
+    在js解释器中，进行相加操作时，如果两个操作符中有一个是字符串，另外一个也会被转换为字符串，然后再进行字符串拼接；如果两端的操作数中没有 String，但有 Undefined,Number,null,Boolean 时，会先转换为Number类型再相加。
+   
+1. 两边只要有一个是 String 类型，先转为 String 类型再拼接。
+2. 如果两端的操作数中没有 String，有 Number 或 Boolean 类型，先转换为数字再相加。
+3. 和对象相加，先将对象转换成原始值，先调用 valueof(),再调用 toString()。
+4. Date 对象转换成原始值，直接调用 toString()。
+
+```javascript
+var a = new Array(1,2);
+var b = 1;
+b+a; // '1'+'1,2' => '11,2'
+
+()+(); // ''
+ 
+1+{a:1};// 1[object][object]
+
+{a:1}+1;// 1 解释器将大括号认为一段代码的结束，将+变成了一元操作符
+
+{}+{};// NaN, 一元操作符将 [object]
+```
 
 ### 等号
 1. === 
