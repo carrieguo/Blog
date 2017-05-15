@@ -91,7 +91,7 @@ message;        //全局变量，可被删除
     * 错误对象
     * 常用对象 8种 `String,Number,Boolean,Object,Function,Array,Date,RegExp`
     * 内置对象 `Global,Length,Json`
-2. 宿主对象 `Windows`
+2. 宿主对象 `Windows，document`
 3. 自定义对象
 
 #### 创建对象
@@ -129,7 +129,7 @@ Boolean(new Boolean(false));
 ```
 2. 转换为 String 类型，
 
-    系统会先调用 toString() 方法：
+    系统会先调用 toString() 方法：将对象将字符串形式表达出来
     
         * Array,将数组中的每一项用逗号分隔开，并且合并成一个字符串。
         * Function,当前函数的源代码
@@ -144,7 +144,11 @@ Boolean(new Boolean(false));
         
 3. 转换为 Number 类型
        和 String 相反，先调用 valueof()，再调用 toString()。
-            
+ 
+4. 如果不确定转换为 String 类型还是 Number 类型，这就变成了对象到原始值的转换。
+    进行对象向原始值的转换，先调用 valueof(),可能得到的还是自身的对象（也可能得到一个原始值），再调用 toString()。
+5. Date 对象转换成原始值，直接调用 toString()。
+   
 ####比较
 * 原始数据类型的比较是值的比较
 * 对象的比较是引用的比较
@@ -248,21 +252,26 @@ a==2||b=3   //判断第一个表达式为false时，才赋值
    
 1. 两边只要有一个是 String 类型，先转为 String 类型再拼接。
 2. 如果两端的操作数中没有 String，有 Number 或 Boolean 类型，先转换为数字再相加。
-3. 和对象相加，先将对象转换成原始值，先调用 valueof(),再调用 toString()。
+3. 和对象相加，进行对象向原始值的转换，先调用 valueof(),得到的还是自身的对象，再调用 toString()。
 4. Date 对象转换成原始值，直接调用 toString()。
 
 ```javascript
+//数组调用 valueof 方法返回自身，在调用 toString 返回各项组合起来的字符串
 var a = new Array(1,2);
 var b = 1;
 b+a; // '1'+'1,2' => '11,2'
 
-()+(); // ''
+()+(); // '' 空数组相加
  
 1+{a:1};// 1[object][object]
 
 {a:1}+1;// 1 解释器将大括号认为一段代码的结束，将+变成了一元操作符
 
-{}+{};// NaN, 一元操作符将 [object]
+{}+{};// NaN, 第一个空对象被认为是一段代码的结束，一元加将后面的空对象 [object][object]转换为数字
+
+({}) + {};//[object Object][object Object]
+
+{} + ();//0 把空数组进行数字类型转换
 ```
 
 ### 等号
