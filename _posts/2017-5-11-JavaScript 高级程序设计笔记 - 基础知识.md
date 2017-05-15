@@ -163,12 +163,12 @@ console.log(a); //abcd
 ```
 ### typeof 操作符
 typeof 返回值都是字符串，使用时可带括号，也可省略。
-"undefind" - 如果这个值未定义
-"bollean" - 如果这个值是布尔值
-"string" - ...字符串
-"number" - ...数值
-"object" - ...对象或null
-"function" - ...函数
+* "undefind" - 如果这个值未定义
+* "bollean" - 如果这个值是布尔值
+* "string" - ...字符串
+* "number" - ...数值
+* "object" - ...对象或null
+* "function" - ...函数
 
 ## 表达式
 表达式和操作符构成了JS。
