@@ -31,3 +31,6 @@ gems:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-redirect-from
+
+# Google services
+google_analytics: UA-99590030-1
