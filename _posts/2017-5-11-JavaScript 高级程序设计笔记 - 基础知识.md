@@ -115,7 +115,7 @@ var person = {
 
 #### 基本数据类型转换为 Object 类型
 Object存在一个 同名函数，将参数转换为Object类型
-1. Undefined Null 得到一个空对象
+1. Undefined Null 会得到一个空对象
 2. String 有好几个属性，其中有 length,按数字的索引
 `String {0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"}`
 3. Boolean,Number 得到一个对象，属性名称为初始值，对应的值为true
