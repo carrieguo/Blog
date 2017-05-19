@@ -1,7 +1,7 @@
 ---
 layout:            post
-title:             "模块化编程工具 RequireJs"
-date:              2017-05-17 10:10:00 +0300
+title:             "模块化编程工具 Require.js"
+date:              2017-05-19 10:10:00 +0300
 tags:              Require.js
 category:          JavaScript
 author:            carrie
