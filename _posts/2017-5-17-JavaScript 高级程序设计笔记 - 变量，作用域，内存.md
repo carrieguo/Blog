@@ -6,6 +6,7 @@ tags:              JavaScript 笔记
 category:          JavaScript
 author:            carrie
 math:              true
+intensedebate_comments: true
 ---
 
 ## 变量
