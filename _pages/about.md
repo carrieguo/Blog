@@ -1,7 +1,7 @@
 ---
 layout:    about
 permalink: "/about/"
-author:    jwillmer
+author:    carrie
 keywords:  about person demo example
 title:     About Carrie
 menutitle: About
