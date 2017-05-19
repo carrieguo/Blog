@@ -1,6 +1,6 @@
 ---
 layout:            post
-title:             "对象"
+title:             "模块化编程工具 RequireJs"
 date:              2017-05-17 10:10:00 +0300
 tags:              Require.js
 category:          JavaScript
