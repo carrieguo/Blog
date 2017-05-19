@@ -50,6 +50,9 @@
     }
 </style>
 <script>
+    setTimeout(function(){
+        document.getElementById('bgvid').play();
+    },10000);
     var vid = document.getElementById("bgvid"),
         pauseButton = document.getElementById("vidpause");
     vid.play();
