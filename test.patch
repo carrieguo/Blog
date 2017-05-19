@@ -1,0 +1,32 @@
+Index: _layouts/post.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- _layouts/post.html	(revision 6effd02a8002d6b8f5c2242760b482bc0184aa5b)
++++ _layouts/post.html	(revision )
+@@ -38,3 +38,6 @@
+ 
+ 
+ {% include disqus.html %}
++{% if site.intensedebate_comments %}
++{% include intensedebate-comments.html %}
++{% endif %}
+Index: _includes/intense debate-comments.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- _includes/intense debate-comments.html	(revision )
++++ _includes/intense debate-comments.html	(revision )
+@@ -0,0 +1,9 @@
++{% if page.comments != false %}
++<script>
++    var idcomments_acct = 'xxxx50b9b39';
++    var idcomments_post_id = '{{ page.url }}';
++    var idcomments_post_url;
++</script>
++<span id="IDCommentsPostTitle" style="display:none"></span>
++<script type='text/javascript' src='https://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
++{% endif %}
+\ No newline at end of file
