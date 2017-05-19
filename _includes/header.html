@@ -26,6 +26,25 @@
             {% endfor %}
         </ul>
     </div>
-
+    <video poster="media/video/Palm_Tree.jpg" id="bgvid" playsinline autoplay muted loop>
+        <source src="media/video/Palm_Tree.webm" type="video/webm">
+        <source src="media/video/Palm_Tree.mp4" type="video/mp4">
+    </video>
 
 </header>
+<style>
+    video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        transform: translateX(-50%) translateY(-50%);
+        background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+        background-size: cover;
+        transition: 1s opacity;
+    }
+</style>
