@@ -31,7 +31,6 @@ requirejs(['jquery', 'underscore', 'backbone'], function ($, _, Backbone){
 　　});
 ```
 3. 模块
-
 ```javascript
 //math.js
 //依赖jquery
