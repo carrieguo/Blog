@@ -32,8 +32,7 @@ requirejs(['jquery', 'underscore', 'backbone'], function ($, _, Backbone){
 ```
 3. 模块
 ```javascript
-//math.js
-//依赖jquery
+//math.js 依赖jquery
 define(['jquery'],function (){
 　　　　var add = function (x,y){
 　　　　　　return x+y;
@@ -49,5 +48,4 @@ requirejs(['jquery', 'math','underscore', 'backbone'], function ($, _, Backbone)
 　　　　// some code here
         $('body').css('background','red');
 　　});
-
 ```
