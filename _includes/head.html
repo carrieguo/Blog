@@ -32,4 +32,7 @@
     <link rel="icon" href="{{ "/assets/favicon-32.png" | absolute_url }}" sizes="32x32" type="image/png">
     <link rel="icon" href="{{ "/assets/favicon-48.png" | absolute_url }}" sizes="48x48" type="image/png">
     <link rel="icon" href="{{ "/assets/favicon-62.png" | absolute_url }}" sizes="62x62" type="image/png">
+    {% if site.google_analytics and jekyll.environment == 'production' %}
+    {% include analytics.html %}
+    {% endif %}
 </head>
