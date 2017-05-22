@@ -9,7 +9,7 @@ math:              true
 ---
 各种属性及其对应值组成的无序合集。
 
-## 数组
+## 数组对象
 #### 创建
 ```javascript
 new Array(2);   //包含两项，每一项都是 undefined
@@ -79,4 +79,34 @@ Area.from(new set(array));
 
 ...new set(array);
 
+## 时间对象
+JS 支持两种时间
+* GMT 时间 格林威治标准时间 （有误差）
+* UTC 时间 平均时间 （更精准）
 
+1970年1月1日0点开始到当前的毫秒数
+
+```javascript
+new Date('2016,10,10');//月份从0开始
+new Date('May 25,2016 13:20')//解析字符串
+```
+#### 继承方法
+toString()
+toLocalString()
+
+valueof() 返回日期的毫秒表示
+
+#### 格式化方法
+
+toUTCString() //设置cookies过期时间
+
+把一个时间对象转换为毫秒数有以下方法
+```
+valueof()   //快，推荐
+
+getTime()   //快，推荐
+
+Number()    //慢
+
++           //慢，推荐
+```
