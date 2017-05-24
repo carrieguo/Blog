@@ -72,3 +72,52 @@ function *
 new funtion('sum1','sum2','return sum1+sum2');
 //调用了eval，耗性能，不安全；污染全局环境；
 ```
+
+## 将函数作为参数
+
+回调函数 `文件读取，数据库操作` 异步操作
+```javascript
+
+```
+操作函数
+
+## 将函数作为返回值
+
+## 闭包
+闭包中的变量会一直存在内存中，外部无法访问
+```javascript
+function a(){
+    var i=0;
+    return function() {
+        alert(i++);    
+    }
+}
+var b = a();
+b(); //0，1，2...
+```
+
+随机生成不重复 id
+```javascript
+var a = 'abc';
+var b = 0;
+function getID() {
+    return a+b++;
+}
+//利用闭包，外部无法访问变量a,b
+var getID =(function(){
+    var a = 'abc';
+    var b = 0;
+    return function() {
+      return a+b++;
+    }
+})();
+```
+
+如果代码在全局环境下运行，会生成一个列表——作用域链，只包含一个活动对象，运行函数时会创建一个函数作用域链，一个指向全局活动对象，另一个
+
+```javascript
+var a;
+function b() {
+  function c(){}
+}
+```
