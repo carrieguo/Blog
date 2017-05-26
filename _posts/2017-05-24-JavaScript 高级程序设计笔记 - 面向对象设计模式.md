@@ -69,6 +69,7 @@ alert(person1 instanceof Person); //true
     在JS中，每创造的函数都有一个特殊的属性prototype`原型`，指向当前函数的一个原型对象。默认情况下，所有源性对象都会自动获得一个constructor(构造函数)属性，这个属性包括一个指向prototype属性所在函数的指针。
     调用构造函数创建一个对象后，对象的内部都有一个特殊的指针`[[Prototype]]`指向它的构造函数的原型对象，正常情况下访问不到这个指针，但是现代浏览器在每个对象上都支持一个属性__proto__，可以通过其访问到。
     ES5 中也提供了一个方法叫 Object.getPrototypeOf(),来访问这个指针。
+    
 ```javascript
 function Person(){}
 Person.prototype.name = 'carrie';
