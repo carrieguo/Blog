@@ -127,7 +127,7 @@ Object.defineProperties(Person.prototype, 'constructor',{
 
 
 #### 查找对象属性时 `原型链查找`
-    当我们访问person1上的某个属性时，解释器首先在person1对象上查找有没有这个属性，没有找到会顺着prototype找到对应的原型对象，如果还未找到，就会返回undefined。
+    当我们访问person1上的某个属性时，解释器首先在person1对象上查找有没有这个属性，没有找到会顺着prototype找到对应的原型对象，直至Object.如果还未找到，就会返回undefined。
     例如，所有的对象我们都可以调用它的toSting()和valueof()方法，因为这两个方法存在于Object的原型对象上。
     object的原型对象还有三个，分别为：
     1. isPrototypeOf() 确定是否是当前对象的原型对象    
@@ -180,3 +180,29 @@ function a(){
 #### 在实际开发中，如果不确定this的指向，
 1.可以console.log一下
 2. 设置一个断点，在控制台打印this，
+
+## 组合模式 `组合使用构造函数模式和原型模式`
+    一般我们在开发中，构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。每个实例都会有自己的一份实力属性的副本，但同时又共享着对方法的引用，极大限度的节省了内存。这种混合模式还支持传递参数。
+
+```javascript
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = ['carrie','bill'];
+}
+
+Person.prototype = {
+    constructor : Person,
+    sayName : function() {
+      alert(this.name);
+    }
+}
+
+var person1 = new  Person('carrie',29,'coder');
+var person2 = new  Person('bill',29,'coder');
+
+person1.friends.push('van');
+
+alert(person1.sayName === person2.sayName); //true
+```
