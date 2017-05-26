@@ -7,9 +7,8 @@ category:          JavaScript
 author:            carrie
 math:              true
 ---
-## 创建对象
 
-#### 工厂模式
+## 工厂模式
 ```javascript
 function creatPerson(name,age,job){
     var o = new Object();
@@ -25,7 +24,7 @@ var person1 = creatPerson('carrie',29,'coder');
 ```
 缺点：无法识别对象类型
 
-#### 构造函数模式
+## 构造函数模式
 ```javascript
 //在开发中，如果使用到了构造函数，通常将函数名首字母大写
 function Person(name,age,job){
