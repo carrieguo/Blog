@@ -1,7 +1,7 @@
 ---
 layout:            post
 title:             "函数"
-date:              2017-05-17 10:10:00 +0300
+date:              2017-05-22 10:10:00 +0300
 tags:              JavaScript 笔记
 category:          JavaScript
 author:            carrie
