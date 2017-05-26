@@ -104,7 +104,14 @@ alert(friend instanceof Object);    //true
 alert(friend instanceof Person);    //true
 alert(friend.constructor == Person);    //false
 alert(friend.constructor == Object);    //true
+```
 
+<figure>
+   <img src="{{ "/media/img/prototype_constructor.jpg" | absolute_url }}" />
+   <figcaption>break constructor</figcaption>
+</figure>
+
+```javascript
 //解决constructor指针指向，可以像下面一样特意将它设置
 function Person() {}
 Person.prototype = {
@@ -154,7 +161,6 @@ alert('name' in person1); //true 来自原型
 #### 可枚举属性和不可枚举属性
     在实际开发中我们创建的属性方法都可枚举
     在IE8下创建新对象设置属性toString,是不可枚举的
-  000000000000000000
     
 #### 设置对象属性或方法时
     解释器看当前对象是否存在这个属性或方法，如果有，直接赋值；若不存在，直接在当前对象创建属性或方法。
