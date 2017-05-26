@@ -7,6 +7,7 @@ category:          JavaScript
 author:            carrie
 math:              true
 ---
+
 函数定义使用过程中，传递参数
 
 ## 函数创建
