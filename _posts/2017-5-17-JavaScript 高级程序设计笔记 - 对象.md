@@ -1,6 +1,6 @@
 ---
 layout:            post
-title:             "对象"
+title:             "数组对象，时间对象"
 date:              2017-05-17 10:10:00 +0300
 tags:              JavaScript 笔记
 category:          JavaScript
@@ -13,8 +13,11 @@ math:              true
 #### 创建
 ```javascript
 new Array(2);   //包含两项，每一项都是 undefined
+Array.apply(null,{length:2});//上面的写法无法使用for循环遍历，可采用这种写法
+
 new Array('a'); //
-var a = ['a','b'];
+var a = ['a','b'];  //Arr
+
 ```
 #### 读取
 ```javascript
@@ -34,7 +37,7 @@ if(list.constructor == Array){}
 //以上两种方法，在多个 iframe 下可能会出错
 
 if(Array.isArray(list)){}   //es5
-
+//最佳方式
 Object.prototype.toString.call(o) === '[object Array]';
 ```
 
@@ -57,6 +60,21 @@ list.sort(function(a,b){
 });    //sort 是一种冒泡排序
 ```
 sort()方法需要多次计算
+
+##### 操作方法
+concat()    合并多个数组
+slice()     返回起始和结束位置之间的项，不会影响原始数组
+splice()    返回一个新数组。
+1. 删除。第一个参数为删除的第一项的位置，第二个参数为要删除的项数。
+2. 插入和替换。三个参数:起始位置、0（要删除的项数）、要插入的项。
+
+#### 伪数组
+1. DOM节点
+2. 函数参数argument
+```javascript
+//把伪数组转换为真实数组
+Array.prototype.slice.call(o);
+```
 
 #### 数组去重
 

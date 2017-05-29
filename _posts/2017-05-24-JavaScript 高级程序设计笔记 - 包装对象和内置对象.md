@@ -37,7 +37,7 @@ console.log(a.length);  //4。又创建了一次包装对象
 基于子字符串创建新字符串。
 
 * slice('3','-2')    
-* substring('3','-2') //substring('0','3')
+* substring('3','-2') //相等于 substring('0','3')
 * substr() //类似于substring,第二个参数是截取几个字符串的意思
 1. 当第二个参数小于第一个参数时，substring 会调换两个参数位置；slice会返回undefined
 2. 对于负数参数，slice会将负数视为倒数，substring会将负数视为0。
@@ -67,15 +67,19 @@ array.chatAt(new Date().getDay())
 ```
 
 ## 内置对象
+JS解释器中已定义好的对象。
 不需要new操作符创建的对象（无需实例化），没有构造方法。
 1. Global 全局对象 访问不到，只是一个概念，表示全局环境
 
-    处理数字`isFinite,isNan,parseint,parsefloat`
+    * 处理数字`isFinite,isNaN(判断是否能转换为数字),parseint,parsefloat`
     
-    处理URL `encodeURI,encodeURIComponent`
+    * 处理URL `encodeURI,encodeURIComponent`
     
-    eval() 接受字符串作为参数，将字符串运行
-    
+    * eval() 改写解释器，性能不好
+        * 转Json结构；
+        * 动态声明局部变量；
+        * 代码压缩；
+        * 接受字符串作为参数，将字符串运行
     严格模式下外部访问不到eval()中创建的任何变量或函数；存在安全隐患
     
 2. Math
@@ -83,5 +87,7 @@ array.chatAt(new Date().getDay())
     random 生成0到1的一个随机数，不会出现0或1
 ```javascript
 //生成随机字符串
-Math.random().toString(36)
+Math.random().toString(36);
 ```
+3. Json
+    字符串和json互转

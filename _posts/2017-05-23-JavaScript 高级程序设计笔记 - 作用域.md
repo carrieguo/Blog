@@ -20,7 +20,87 @@ JS只提供了函数作用域，不支持块级作用域。我们可以通过IIF
 4. 解决命名冲突，假设自己定义了一个$，又使用了jquery框架，我们可以windows.jquery作为实参传递给匿名函数。
 
     修复bug,undefined可以赋值。假如不小心给undefined赋值了，我们可以用function(undefined){}()解决。
-6. 保存闭包状态。for循环中执行异步操作，
+6. 保存闭包状态。作用域链机制使得比闭包只能取得包含函数中任何变量的最后一个值。
+```javascript
+var data = [];
+ 
+for (var i = 0; i<=3; i++) {
+  data[i] = function () {
+    console.log(i);
+  };
+}
+ 
+data[0]();  //3
+data[1]();  //3
+data[2]();  //3
+
+/*
+当执行到 data[0] 函数之前，此时全局上下文的 VO 为：
+
+globalContext = {
+    VO: {
+        data: [...],
+        i: 3
+    }
+}
+
+当执行 data[0] 函数的时候，data[0] 函数的作用域链为：
+
+data[0]Context = {
+    Scope: [AO, globalContext.VO]
+}
+
+data[0]Context 的 AO 并没有 i 值，所以会从 globalContext.VO 中查找，i 为 3，所以打印的结果就是 3。
+*/
+
+//让我们改成闭包看看：
+
+var data = [];
+ 
+for (var i = 0; i  3; i++) {
+  data[i] = (function (i) {
+        return function(){
+            console.log(i);
+        }
+  })(i);
+}
+ 
+data[0]();
+data[1]();
+data[2]();
+
+/*当执行到 data[0] 函数之前，此时全局上下文的 VO 为：
+
+globalContext = {
+    VO: {
+        data: [...],
+        i: 3
+    }
+}
+
+跟没改之前一模一样。
+
+当执行 data[0] 函数的时候，data[0] 函数的作用域链发生了改变：
+
+data[0]Context = {
+    Scope: [AO, 匿名函数Context.AO globalContext.VO]
+}
+
+匿名函数执行上下文的AO为：
+
+匿名函数Context = {
+    AO: {
+        arguments: {
+            0: 1,
+            length: 1
+        },
+        i: 0
+    }
+}
+
+data[0]Context 的 AO 并没有 i 值，所以会沿着作用域链从匿名函数 Context.AO 中查找，这时候就会找 i 为 0，找到了就不会往 globalContext.VO 中查找了，即使 globalContext.VO 也有 i 的值(值为3)，所以打印的结果就是0。
+*/
+```
 7. UMD通用模块规范
 ```javascript
 ~function(a){

@@ -7,7 +7,8 @@ category:          JavaScript
 author:            carrie
 math:              true
 ---
-
+JS本身是面向过程的语言，面向过程是通过一些手段模拟出来的。
+我们在封装框架时比较容易用到面向对象。
 ## 工厂模式
 ```javascript
 function creatPerson(name,age,job){
@@ -107,10 +108,7 @@ alert(friend.constructor == Person);    //false
 alert(friend.constructor == Object);    //true
 ```
 
-<figure>
-   <img src="{{ "/media/img/prototype_constructor.jpg" | absolute_url }}" />
-   <figcaption>break constructor</figcaption>
-</figure>
+
 
 ```javascript
 //解决constructor指针指向，可以像下面一样特意将它设置
@@ -131,7 +129,27 @@ Object.defineProperties(Person.prototype, 'constructor',{
     value:Person
 });
 ```
+```javascript
+//原型动态性，重写原型对象切断了现有原型与任何之前已经存在的对象实例之间的联系；它们引用的仍然是最初的原型。如下图
+function Person() {
+}
 
+var friend = new Person();
+Person.prototype={
+    constructor:Person,
+    name:'carrie',
+    age:29,
+    job:'coder',
+    sayName : function () {
+      alert(this.name);
+    }
+};
+friend.sayName();   //error
+```
+<figure>
+   <img src="{{ "/media/img/prototype_constructor.jpg" | absolute_url }}" />
+   <figcaption>break constructor</figcaption>
+</figure>
 
 #### 查找对象属性时 `原型链查找`
     当我们访问person1上的某个属性时，解释器首先在person1对象上查找有没有这个属性，没有找到会顺着prototype找到对应的原型对象，直至Object.如果还未找到，就会返回undefined。
@@ -156,8 +174,8 @@ for (x in person1)
 //in
 alert('name' in person1); //true 来自原型
 ```
-    4.Objext.getOwnPropertyNames() 得到当前对象下所有的自由属性
-    3.Objext.keys() 得到所有属性，得到的结果和for-in循环相同
+    4.Object.getOwnPropertyNames() 得到当前对象下所有的自由属性
+    3.Object.keys() 得到所有属性，得到的结果和for-in循环相同
 
 #### 可枚举属性和不可枚举属性
     在实际开发中我们创建的属性方法都可枚举
