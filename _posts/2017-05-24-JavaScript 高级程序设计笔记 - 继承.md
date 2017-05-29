@@ -78,12 +78,14 @@ var instance2 = new SubType();
 alert(instance2.colors);    //'red,blue,green,black'
 /*当SunType通过原型链继承了SuperType之后，SubType.Prototype就变成了SuperType的一个实例，因此它也拥有了一个它自己的color属性，就跟专门创建了一个SubType.prototype.colors属性一样。结果SubType所有的实例都会共享这一个colors属性，我们对instance1.colors的修改能够通过instance2.colors反映出来。*/
 ```
+
 4. 在创建子类型的实例时，不能向超类型的构造函数中传递参数。实际上，应该说是没有办法在不影响所有对象实例的情况下，给超类型的构造函数传递参数。
 
 
 #### 借用构造函数
     核心思想：让父类的构造函数在子类中重新运行一遍。
     在子类型的构造函数内部调用超类型构造函数
+    
 ```javascript
 function SuperType(){
     this.colors = ['red','blue','green'];
@@ -100,8 +102,10 @@ alert(instance1.colors);    //'red,blue,green,black'
 var instance2 = new  SubType();
 alert(instance2.colors);    //'red,blue,green'
 ```
+
 优点
 1. 可传参
+
 ```javascript
 function SuperType() {
   this.name = name;
@@ -117,6 +121,7 @@ var instance = new SubType();
 alert(instance.name);   //Carrie
 alert(instance.age);    //29
 ```
+
 2. 可实现多继承
 3. 所有属性不共享
 
@@ -136,6 +141,7 @@ alert(instance.age);    //29
 ####原型式继承`Object.creat()`
 类似原型模式，包含引用类型值的属性始终都会共享相应的值。
 接收两个参数：一个用做新对象原型的对象(要继承的对象)和（可选的）一个为新对象定义额外属性的对象。
+
 ````javascript
 var person={
     name:'carrie',
@@ -154,6 +160,7 @@ anotherPerson.name; //"Greg"
 yetAnotherPerson.name; //"Linda"
 alert(person.friends); //"bill", "Rob", "Bar"
 ````
+
 创建对象的三种方式
 1. 字符字面量
 2. new操作符
@@ -161,6 +168,7 @@ alert(person.friends); //"bill", "Rob", "Bar"
 
 #### 寄生式继承
 与原型式继承紧密相关。寄生式继承的思路与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，然后再像真的是它做了所有工作一样返回对象。
+
 ```javascript
 function creteAnother(original){
     var clone = object(original);   //通过调用函数创建一个新对象
@@ -176,7 +184,9 @@ var person = {
 };
 var another = creteAnother(person);
 ```
+
 #### 组合寄生式继承 `完美继承`
+
 ```javascript
 b.prototype = new a(); //旧写法
 b.prototype.__proto__=a.prototype;  //新写法，但是只支持ES5，浏览器兼容性不好
