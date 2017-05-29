@@ -57,7 +57,7 @@ data[0]Context 的 AO 并没有 i 值，所以会从 globalContext.VO 中查找�
 
 var data = [];
  
-for (var i = 0; i  3; i++) {
+for (var i = 0; i<= 3; i++) {
   data[i] = (function (i) {
         return function(){
             console.log(i);
