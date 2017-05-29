@@ -14,6 +14,7 @@ JS语言中虽然不存在继承，但是我们可以通过一些手段来模拟
     核心思想：让子类的原型对象指向父类的实例
     我们有两个构造函数a和b,我们的目的是让b的实例可以使用a的属性和方法。
     当使用new b创建一个b对应的实例时，如果想访问实例的属性和方法，会先看实例上有没有这个属性和方法，如果没有就会到实例对应的原型对象上接着去找。
+    
 ```javascript
 b.prototype = new a();
     //让子类的原型对象指向父类的实例
@@ -37,11 +38,14 @@ SubType.prototype.getSubValue = function(){
 var instance = new SubType();
 alert(instance.getSuperValue()); //true
 ```
+
 <figure>
    <img src="{{ "/media/img/prototype.jpg" | absolute_url }}" />
    <figcaption>原型链</figcaption>
 </figure>
+
 事实上，上面展示的原型链还少一环。所有引用类型默认都继承了Object,而这个继承也是通过原型链实现的。所以函数的默认原型都是Object的实例，因此默认原型都会包含一个内部指针，指向Object.prototype。这也正是所有自定义类型都会继承toString()、valueOf()等默认方法的根本原因。如下图
+
 <figure>
    <img src="{{ "/media/img/prototype_all.jpg" | absolute_url }}" />
    <figcaption>原型链</figcaption>
@@ -56,6 +60,7 @@ alert(instance.getSuperValue()); //true
 1. 当为子类增加属性和方法时，需要写在 b.prototype = new a();之后，否则会被覆盖掉
 2. 原型链式的继承，无法实现多继承。
 3. 所有属性都是共享的`类似原型`。
+
 ```javascript
 function SuperType(){
     this.colors = ['red','blue','green'];
@@ -108,7 +113,7 @@ function SubType(){
     this.age = 29;
 }
 
-var instance = new SuperType();
+var instance = new SubType();
 alert(instance.name);   //Carrie
 alert(instance.age);    //29
 ```

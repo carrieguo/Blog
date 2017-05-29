@@ -125,6 +125,16 @@ d pear
 */
 ```
 ## 函数
+#### 函数参数的默认值
+ES6 允许为函数的参数设置默认值，即直接写在参数定义的后面。
+```javascript
+function log(x,y = 'world') {
+  console.log(x,y);
+}
+log('Hello')    //Hello World
+log('Hello','China')    //Hello China
+log('Hello','')    //Hello 
+```
 #### 箭头函数
 ES6 允许使用“箭头”（=>）定义函数。
 ```javascript
