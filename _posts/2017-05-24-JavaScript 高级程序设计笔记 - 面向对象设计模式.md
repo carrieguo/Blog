@@ -230,3 +230,34 @@ person1.friends.push('van');
 
 alert(person1.sayName === person2.sayName); //true
 ```
+
+#### call() apply() bind()
+    每个函数都包含两个非继承而来的方法：apply()和call()。这两个方法的用途都是在特定的作用域中调用函数，实际上等于设置函数体内this对象的值。
+    * apply()方法接收两个参数：一个是在其中函数的作用于，另一个是参数数组。其中，第二个参数可以使Array的实例，也可以是arguments对象。
+    * call()与apply()作用相同，区别在于，传递给函数的参数必须逐个列举出来。
+    
+```javascript
+window.color = 'red';
+var o = {color:'blue'};
+
+function sayColor(){
+    alert(this.color);
+}
+
+sayColor();             //red
+sayColor.call(this);    //red
+sayColor.call(window);  //red
+sayColor.call(o);       //blue
+```
+    ES5中还有一个方法bind()。这个方法会创建一个函数的实例，其this值会绑定到传给bind()函数的值。
+```javascript
+window.color = 'red';
+var o = {color : 'blue'};
+
+function sayColor() {
+  alert(this.color);
+}
+var objectSayColor = sayColor().bind(o);
+objectSayColor();  //blue
+```
+    sayColor()调用bind()并传入对象o,创建了objectSayColor()函数。objectSayColor()函数的this值等于o。
