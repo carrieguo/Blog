@@ -133,12 +133,44 @@ alert(instance.age);    //29
 #### 组合继承 `伪经典继承，多使用此方法`
 1. 子类的构造函数中使用call或apply,重新运行一遍父类的构造函数。`SuperType.call(this,name);`
 2. 让子类的原型指向父类的实例。`SubType.prototype = new SuperType();`
+```javascript
+function SuperType(name) {
+    this.name = name;
+    this.colors = ['red','blue','green'];
+}
+SuperType.prototype.sayName = function() {
+  alert(this.name);
+};
 
+function SubType(name,age) {
+  //继承属性
+  SuperType.call(this,name);
+  this.age = age;
+}
+//继承方法
+SubType.prototype = new SuperType();
+SubType.prototype.constructor = SubType;
+SubType.prototype.sayAge = function() {
+  alert(this.age);
+};
+
+var instance1 = new SubType('carrie',29);
+instance1.colors.push('black');
+alert(instance1.colors);    //'red,blue,green,black'
+instance1.sayName();    //'carrie'
+instance1.sayAge();     //29
+
+var instance2 = new SubType('bill',30);
+alert(instance2.colors);    //'red,blue,green'
+instance2.sayName();    //'bill'
+instance2.sayAge();     //30
+```
 缺点：
 1. 父类的构造函数被调用了两次。占资源。call，apply;b.prototype=new a()
 2. 会引起同名屏蔽问题,有可能导致原型对象和当前对象上存在一个同名的变量和函数，访问时只能访问到当前对象上的属性和方法。属性和方法在实例和原型中各存在一份，
 
 ####原型式继承`Object.creat()`
+
 类似原型模式，包含引用类型值的属性始终都会共享相应的值。
 接收两个参数：一个用做新对象原型的对象(要继承的对象)和（可选的）一个为新对象定义额外属性的对象。
 

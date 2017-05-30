@@ -184,3 +184,138 @@ class Point{
     }
 }
 ```
+#### Class 的继承
+Class之间可以通过extends关键字实现继承
+```javascript
+class ColorPoint extends Point{
+    constructor(x,y,color){
+        super(x,y);     //  调用父类的constructor(x,y)
+        this.color = color;
+    }
+    toString(){
+        return this.color + ' '+ super.toString(); //调用父类的toString（）
+    }
+}
+```
+## Module
+ES6 的模块自动采用严格模式，不管有没有在模块头部加上 "use strict"。
+
+严格模式主要有以下限制
+* 变量必须声明后再使用。
+* 函数的参数不能有同名属性，否则报错。
+* 不能使用with语句。
+* 不能对只读属性赋值，否则报错。
+* 不能删除不可删除的属性，否则报错。
+* arguments不会自动反映函数参数的变化。
+* 禁止this指向全局对象。
+* 增加了保留字（比如 protected、static 和 interface）
+#### export 命令
+模块功能主要由两个命令构成：export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。
+```javascript
+//ca.js
+export var year = 1958;
+export var name = 'carrie';
+export {name,year};
+export function multiply(x,y){
+    return x*y;
+};
+```
+#### import　命令
+```javascript
+import {name,year} from './ca.js';
+```
+## Generator 函数
+    Generator 函数是ES6提供的一种异步编程解决方案。
+    从语法上，首先可以把它理解成一个状态机，封装了多个内部状态。
+    执行Generator函数会返回一个遍历器对象。也就是说Generator函数还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历Generator函数内部的每一个状态。
+```javascript
+function* hello() {
+    yield 'hello';
+    yield 'world';
+    return 'end';
+}
+var hw = hello();
+hw.next()
+//{value:'hello',done:false}
+hw.next()
+//{value:'world',done:false}
+hw.next()
+//{value:'end',done:true}
+hw.next()
+//{value:undefined,done:false}
+```
+需要调用遍历器对象的next方法，是的指针移向下一个状态。Generator函数是分段执行的，yield语句是暂停执行的标记，而next方法可以恢复执行。
+#### next方法的参数
+yield语句本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数会被当作上一条yield语句的返回值
+```javascript
+function* f() {
+    for(var i=0;true;i++){
+        var reset = yield i;
+        if(reset){i=-1}
+    }
+}
+var g=f();
+g.next()    //{value:0,done:false}
+g.next()    //{value:1,done:false}
+g.next(true)    //{value:0,done:false}
+```
+    上面定义了一个可以无限运行的Generator函数f。当next方法带一个参数true时，当前的变量reset就被重置为这个参数（即true）,因此i=-1,下一轮循环就从-1开始递增。
+    这样，可以在Generator函数运行的不同阶段，从外向内注入不同的值，从而控制函数行为。
+## Promise 对象
+Promise是一个对象，用来传递异步操作的消息。
+ES6规定，Promise对象是一个构造函数，用来生成Promise实例。
+```javascript
+//用Promise对象实现AJAX操作
+var getJSON =function(url) {
+    var promise = new Promise(function(resolve,reject){
+        var client = new XMLHttpRequest();
+        client.open("GET",url);
+        client.onreadystatechange = handler;
+        client.responseType = 'json';
+        client.setRequestHeader('Accept','application/json');
+        client.send();
+        
+        function hander(){
+            if (this.readyState !==4){
+                return;
+            }
+            if(this.status===200){
+                resolve(this.response);
+            }else{
+                reject(new Error(this.statusText));
+            }
+        };
+    });
+    return promise;
+};
+getJSON('/posts.json').then(function(json){
+    console.log(json);
+},function(error) {
+    console.error(error);
+});
+```
+    Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由JavaScript引擎提供，不用自己部署。
+    resolve 函数的作用是，将 Promise 对象的装态从Pending 变为Resolved,在异步操作成功时调用，并将异步操作的结果作为参数传递出去；reject函数的作用是，将Promise对象的状态从Pending变为Rejected,在异步操作失败时调用，并将异步操作报出的错误作为参数传递出去。
+    Promise实例生成以后，可以用then方法分别指定Resolved状态和Rejected状态的回调函数。
+    then方法接受两个回调函数作为参数。第一个回调函数是 Promise 对象的状态变为Resolved 时调用，第二个回调函数是Promise对象的状态变为Rejected时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受 Promise 对象传出的值作为参数。
+
+#### Promise.all()
+将多个 Promise 实例包装成一个新的 Promise 实例。
+```javascript
+var p = Promise.all([p1,p2,p3]);
+```
+上面的代码中，Promise.all方法接受一个数组最为参数，p1、p2、p3都是Promise对象的实例；如果不是，就会先调用Promise.resolve方法，将参数转为Promise实例，再进一步处理。
+p 的状态由p1、p2、p3决定
+1. 如果p1、p2、p3状态全成功，就会将p1、p2、p3的返回值组成一个数组，传递给p的回调函数
+2. 只要p1、p2、p3中有一个被Rejected,p的状态就变成Rejected,此时第一个被Rejected的实例的返回值会传递给P的回调函数。
+
+#### Promise.race()
+将多个 Promise 实例包装成一个新的 Promise 实例。
+```javascript
+var p = Promise.race([p1,p2,p3]);
+```
+上面的代码中，只要p1、p2、p3中有一个实例率先改变状态,p的状态就跟着改变。那个率先改变的Promise实例的返回值，就传递给p的回调函数。
+#### Promise.resolve()
+将现有对象转为Promise对象。且其对象是Resolved。
+#### Promise.reject()
+返回一个新的Promise实例，状态为Rejected。
