@@ -17,13 +17,13 @@ function creatPerson(name,age,job){
     o.age = age;
     o.job = job;
     o.sayName = function(){
-        alert(this.name); 
+        alert(this.name);
     };
     return o;
 }
 var person1 = creatPerson('carrie',29,'coder');
 ```
-缺点：无法识别对象类型
+缺点：无法识别对象类型，person1只是一个普通的object。
 
 ## 构造函数模式
 ```javascript
@@ -59,7 +59,7 @@ alert(person1.sayName == person2.sayName);//false
     对象上的一个属性，每个对象都有一个constructor属性。实际上constructor是一个指针，指向当前对象的构造函数。
     工厂模式下创建出的对象，当调用此对象的constructor时，只能得到一个Object。也就是说，创建的对象的构造函数就是之前的Object。
     构造函数模式创建出的对象可以检测由哪个构造函数创建的，能识别对象类型。
-   
+
 #### instanceof   
 判断一个对象是否是某个构造函数创建的可以使用  instanceof  
 ```javascript
@@ -70,7 +70,7 @@ alert(person1 instanceof Person); //true
     在JS中，每创造的函数都有一个特殊的属性prototype`原型`，指向当前函数的一个原型对象。默认情况下，所有源性对象都会自动获得一个constructor(构造函数)属性，这个属性包括一个指向prototype属性所在函数的指针。
     调用构造函数创建一个对象后，对象的内部都有一个特殊的指针`[[Prototype]]`指向它的构造函数的原型对象，正常情况下访问不到这个指针，但是现代浏览器在每个对象上都支持一个属性__proto__，可以通过其访问到。
     ES5 中也提供了一个方法叫 Object.getPrototypeOf(),来访问这个指针。
-    
+
 ```javascript
 function Person(){}
 Person.prototype.name = 'carrie';
@@ -180,7 +180,7 @@ alert('name' in person1); //true 来自原型
 #### 可枚举属性和不可枚举属性
     在实际开发中我们创建的属性方法都可枚举
     在IE8下创建新对象设置属性toString,是不可枚举的
-    
+
 #### 设置对象属性或方法时
     解释器看当前对象是否存在这个属性或方法，如果有，直接赋值；若不存在，直接在当前对象创建属性或方法。
     会引起同名屏蔽问题,有可能导致原型对象和当前对象上存在一个同名的变量和函数，访问时只能访问到当前对象上的属性和方法。
@@ -197,7 +197,7 @@ function a(){
 ```
 2. 作为对象的方法或属性调用时，this指向此对象
     例如工厂模式中的this
-    
+
 3. 构造函数中指向创建出的新对象
 4. 强制指向一个对象，apply call,强制转换this指向
 
@@ -235,7 +235,7 @@ alert(person1.sayName === person2.sayName); //true
     每个函数都包含两个非继承而来的方法：apply()和call()。这两个方法的用途都是在特定的作用域中调用函数，实际上等于设置函数体内this对象的值。
     * apply()方法接收两个参数：一个是在其中函数的作用于，另一个是参数数组。其中，第二个参数可以使Array的实例，也可以是arguments对象。
     * call()与apply()作用相同，区别在于，传递给函数的参数必须逐个列举出来。
-    
+
 ```javascript
 window.color = 'red';
 var o = {color:'blue'};
