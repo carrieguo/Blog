@@ -19,7 +19,7 @@ JS只提供了函数作用域，不支持块级作用域。我们可以通过IIF
 3. 有利于压缩。可以将传递的参数用简单字符代替。
 4. 解决命名冲突，假设自己定义了一个$，又使用了jquery框架，我们可以windows.jquery作为实参传递给匿名函数。
 
-    修复bug,undefined可以赋值。假如不小心给undefined赋值了，我们可以用function(undefined){}()解决。
+    修复bug,undefined可以赋值。假如不小心给undefined赋值了，我们可以用function(undefined){}()解决。.
 6. 保存闭包状态。作用域链机制使得比闭包只能取得包含函数中任何变量的最后一个值。
 ```javascript
 var data = [];
