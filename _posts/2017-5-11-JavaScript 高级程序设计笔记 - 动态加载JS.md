@@ -1,6 +1,6 @@
 ---
 layout:            post
-title:             "基础知识"
+title:             "动态加载JS"
 date:              2018-01-26 16:45:00 +0300
 tags:              JavaScript 笔记
 category:          JavaScript
